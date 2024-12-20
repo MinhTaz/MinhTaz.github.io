@@ -29,6 +29,11 @@
                 border-radius: 10px;
                 padding: 20px;
                 box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                height: 100vh; /* Mở rộng khung theo chiều dọc */
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
             }
             .avatar-container {
                 position: relative;
@@ -50,24 +55,27 @@
                 pointer-events: none; /* Đảm bảo khung không cản trở tương tác */
             }
             #name {
-                animation: rainbow 1s infinite;
-                -webkit-animation: rainbow 1s infinite;
+                background: linear-gradient(90deg, red, yellow, green, cyan, blue, magenta);
+                -webkit-background-clip: text;
+                color: transparent;
+                animation: gradient 3s linear infinite;
             }
-            @keyframes rainbow {
-                0% { color: red; }
-                20% { color: yellow; }
-                40% { color: green; }
-                60% { color: cyan; }
-                80% { color: blue; }
-                100% { color: magenta; }
+            @keyframes gradient {
+                0% { background-position: 0% 50%; }
+                100% { background-position: 100% 50%; }
             }
-            @-webkit-keyframes rainbow {
-                0% { color: red; }
-                20% { color: yellow; }
-                40% { color: green; }
-                60% { color: cyan; }
-                80% { color: blue; }
-                100% { color: magenta; }
+            .buttons a {
+                display: flex;
+                align-items: center;
+                margin: 10px 0;
+                text-decoration: none;
+                color: #f5f5f5;
+                font-weight: bold;
+            }
+            .buttons a img {
+                width: 24px;
+                height: 24px;
+                margin-right: 10px;
             }
         </style>
     </head>
@@ -103,18 +111,15 @@
                     <h2></h2>
                 </div>
                 <div class="buttons">
-                    <a href="https://discord.gg" class="link"><b>TazukiMC#0999</b></a>
-                    <a href="https://discord.gg/YWPdv9T3rz" class="link"><b>BSTORE<b/></a>
+                    <a href="https://www.facebook.com/tazukivn" class="link">
+                        <img src="path_to_facebook_logo.png" alt="Facebook Logo">
+                        Phan Minh Phát
+                    </a>
+                    <a href="https://github.com/MinhTaz" class="link">
+                        <img src="path_to_github_logo.png" alt="GitHub Logo">
+                        MinhTaz
+                    </a>
                 </div>
-                <div class="buttons">
-                    <a href="https://discord.gg/langbang" class="link" onclick="document.getElementById('shop').style.display='block'"><b>LàngBăngNetwork<b/></a>
-                </div>      
-                <div class="buttons">
-                    <a href="https://www.facebook.com/profile.php?id=100088600286250" class="link" onclick="document.getElementById('FaceBook').style.display='block'"><b>FaceBook<b/></a>
-                </div>
-                <div class="buttons">
-                    <a href="https://vi.namemc.com/profile/TazukiVN.1" class="link"><b>Tài khoản Minecraft<b/></a>
-                </div>    
                 <p>
                     <h9><span id="name"><center> </center></span></h9>
                     <h9><span id="name"><center> </center></span></h9>
