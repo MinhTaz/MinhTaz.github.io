@@ -345,149 +345,140 @@
             });
 
             // Typing Animation Messages
-            const messages = [
-                "👋 Welcome to my profile! Thanks for visiting! ✨",
-                "🙏 Chào bạn, đây là trang bio của tôi! 💫",
-                "🌟 Sinh ra là bản gốc, đừng sống như một bản sao! 💯",
-                "🇻🇳 Sinh ra và lớn lên ở Việt Nam thân yêu! ❤️",
-                "🙌 Hãy bố thí tôi bằng cách click vào phần bố thí! 💰",
-                "🏠 Sống ở Quảng Ngãi! 🌊",
-                "😎 Chill thôi! 🎵",
-                "🎮 Thích chơi game, 5 năm chơi minecraft, 6 năm chơi free fire 🏆",
-                "🌊 Yêu biển và sóng, thích yên tĩnh 🧘‍♂️",
-                "⚔️ Founder server minecraft <span class='green-text'>Làng Lá</span> vào chơi với tôi 🎮",
-                "💝 Giàu tình cảm... 🥺",
-                "🎯 Thường chơi game với nick name TazukiVN 🎮",
-                "⚽ Fan MU 20 năm 🔴",
-                "💔 Dell có người yêu huhu 😢"
-            ];
+// Typing Animation Messages
+// Typing Animation Messages
+const messages = [
+    "👋 Welcome to my profile! Thanks for visiting! ✨",
+    "🙏 Chào bạn, đây là trang bio của tôi! 💫",
+    "🌟 Sinh ra là bản gốc, đừng sống như một bản sao! 💯",
+    "🇻🇳 Sinh ra và lớn lên ở Việt Nam thân yêu! ❤️",
+    "🙌 Hãy bố thí tôi bằng cách click vào phần bố thí! 💰",
+    "🏠 Sống ở Quảng Ngãi! 🌊",
+    "😎 Chill thôi! 🎵",
+    "🎮 Thích chơi game, 5 năm chơi minecraft, 6 năm chơi free fire 🏆",
+    "🌊 Yêu biển và sóng, thích yên tĩnh 🧘‍♂️",
+    "⚔️ Founder server minecraft <span class='green-text'>Làng Lá</span> vào chơi với tôi 🎮",
+    "💝 Giàu tình cảm... 🥺",
+    "🎯 Thường chơi game với nick name TazukiVN 🎮",
+    "⚽ Fan MU 20 năm 🔴",
+    "💔 Dell có người yêu huhu 😢"
+];
 
-            class TypingEffect {
-                constructor(element, messages, options = {}) {
-                    this.element = element;
-                    this.messages = messages;
-                    this.currentMessageIndex = 0;
-                    this.currentText = '';
-                    this.isDeleting = false;
-                    this.isWaiting = false;
-                    
-                    // Default options
-                    this.options = {
-                        typingSpeed: options.typingSpeed || 100,
-                        deletingSpeed: options.deletingSpeed || 50,
-                        pauseBeforeDelete: options.pauseBeforeDelete || 3000,
-                        pauseBeforeNext: options.pauseBeforeNext || 1000,
-                        cursorCharacter: options.cursorCharacter || '|'
-                    };
+class TypingEffect {
+    constructor(element, messages, options = {}) {
+        this.element = element;
+        this.messages = messages;
+        this.currentMessageIndex = 0;
+        this.currentText = '';
+        this.isDeleting = false;
+        this.isWaiting = false;
 
-                    // Add cursor element
-                    this.cursorElement = document.createElement('span');
-                    this.cursorElement.className = 'typing-cursor';
-                    this.cursorElement.innerHTML = this.options.cursorCharacter;
-                    this.element.appendChild(this.cursorElement);
+        // Default options
+        this.options = {
+            typingSpeed: options.typingSpeed || 100,
+            deletingSpeed: options.deletingSpeed || 50,
+            pauseBeforeDelete: options.pauseBeforeDelete || 3000,
+            pauseBeforeNext: options.pauseBeforeNext || 1000,
+        };
 
+        // Start typing
+        this.type();
+    }
 
-                    // Start typing
-                    this.type();
-                }
+    getCurrentMessage() {
+        return this.messages[this.currentMessageIndex];
+    }
 
-                getCurrentMessage() {
-                    return this.messages[this.currentMessageIndex];
-                }
+    updateText() {
+        this.element.innerHTML = this.currentText;
+    }
 
-                updateText() {
-                    // Clear previous content except cursor
-                    while (this.element.firstChild !== this.cursorElement) {
-                        this.element.removeChild(this.element.firstChild);
-                    }
-                    
-                    // Add text content
-                    const textElement = document.createElement('span');
-                    textElement.textContent = this.currentText;
-                    this.element.insertBefore(textElement, this.cursorElement);
-                }
+    type() {
+        const currentMessage = this.getCurrentMessage();
+        const speed = this.isDeleting ? this.options.deletingSpeed : this.options.typingSpeed;
 
+        if (this.isWaiting) {
+            setTimeout(() => {
+                this.isWaiting = false;
+                this.isDeleting = true;
+                this.type();
+            }, this.options.pauseBeforeDelete);
+            return;
+        }
 
-                type() {
-                    const currentMessage = this.getCurrentMessage();
-                    const speed = this.isDeleting ? this.options.deletingSpeed : this.options.typingSpeed;
+        if (this.isDeleting) {
+            // Deleting text
+            this.currentText = currentMessage.substring(0, this.currentText.length - 1);
+        } else {
+            // Typing text
+            this.currentText = currentMessage.substring(0, this.currentText.length + 1);
+        }
 
-                    if (this.isWaiting) {
-                        setTimeout(() => {
-                            this.isWaiting = false;
-                            this.isDeleting = true;
-                            this.type();
-                        }, this.options.pauseBeforeDelete);
-                        return;
-                    }
+        this.updateText();
 
-                    if (this.isDeleting) {
-                        // Deleting text
-                        this.currentText = currentMessage.substring(0, this.currentText.length - 1);
-                    } else {
-                        // Typing text
-                        this.currentText = currentMessage.substring(0, this.currentText.length + 1);
-                    }
+        if (!this.isDeleting && this.currentText === currentMessage) {
+            // Finished typing current message
+            this.isWaiting = true;
+        } else if (this.isDeleting && this.currentText === '') {
+            // Finished deleting current message
+            this.isDeleting = false;
+            this.currentMessageIndex = (this.currentMessageIndex + 1) % this.messages.length;
+            setTimeout(() => this.type(), this.options.pauseBeforeNext);
+            return;
+        }
 
-                    this.updateText();
+        setTimeout(() => this.type(), speed);
+    }
+}
 
-                    if (!this.isDeleting && this.currentText === currentMessage) {
-                        // Finished typing current message
-                        this.isWaiting = true;
-                    } else if (this.isDeleting && this.currentText === '') {
-                        // Finished deleting current message
-                        this.isDeleting = false;
-                        this.currentMessageIndex = (this.currentMessageIndex + 1) % this.messages.length;
-                        setTimeout(() => this.type(), this.options.pauseBeforeNext);
-                        return;
-                    }
+// Initialize Typing Effect
+const typingTextElement = document.getElementById('typingText');
+new TypingEffect(typingTextElement, messages);
 
-                    setTimeout(() => this.type(), speed);
-                }
-            }
+// Donation Modal Functions
+function openModal() {
+    document.getElementById('donationModal').style.display = 'block';
+}
 
-            // Initialize typing effect with custom options
-            const typingEffect = new TypingEffect(document.getElementById('typingText'), messages, {
-                typingSpeed: 80,          // Speed of typing
-                deletingSpeed: 40,        // Speed of deleting
-                pauseBeforeDelete: 3000,  // Time to wait before starting to delete
-                pauseBeforeNext: 1000,    // Time to wait before typing next message
-                cursorCharacter: '|'      // Custom cursor character
-            });
+function closeModal() {
+    document.getElementById('donationModal').style.display = 'none';
+}
 
-            // Rest of your code (datetime and modal functions) remains the same
-            function updateDateTime() {
-                const now = new Date();
-                const dateTimeString = now.toLocaleString('vi-VN', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
-                document.getElementById('datetime').textContent = dateTimeString;
-            }
+// Update DateTime
+function updateDateTime() {
+    const now = new Date();
+    const formattedDateTime = now.toLocaleString();
+    document.getElementById('datetime').textContent = formattedDateTime;
+}
 
-            // Update time every second
-            updateDateTime();
-            setInterval(updateDateTime, 1000);
+setInterval(updateDateTime, 1000);
+updateDateTime();
 
-            function openModal() {
-                document.getElementById('donationModal').style.display = 'block';
-            }
+// Smooth Scrolling for Anchor Links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+        });
+    });
+});
 
-            function closeModal() {
-                document.getElementById('donationModal').style.display = 'none';
-            }
+// Detect User Agent and Log
+const userAgent = navigator.userAgent.toLowerCase();
+console.log("User Agent:", userAgent);
 
-            // Close modal when clicking outside
-            window.onclick = function(event) {
-                if (event.target == document.getElementById('donationModal')) {
-                    closeModal();
-                }
-            }
-        </script>
-    </body>
-</html>
+// Easter Egg Animation
+function runEasterEgg() {
+    alert("Easter Egg Found! 🎉");
+    console.log("Congratulations! You've found the Easter Egg!");
+}
+
+document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey && e.key === 'e') {
+        runEasterEgg();
+    }
+});
+
+// Log Page View
+console.log("Welcome to the profile page! 🎉 Thanks for visiting.");
