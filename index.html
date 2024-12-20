@@ -1,139 +1,176 @@
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
         <title>Tazuki Pro</title>
+        <!-- Thêm Font Awesome để sử dụng icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <meta content="Chào tui là TazukiVN ;-;" property="og:title" />
         <meta content="Welcome đã đến với trang của tôi :3" property="og:description" />
         <meta content="/assets/images/avatar.png" property="og:url" />
         <meta content="/assets/images/avatar.png" property="og:image" />
         <meta content="#d4a563" data-react-helmet="true" name="theme-color" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="shortcut icon" href="assets/images/icon.png" type="image/png">
-        <script src="https://sindresorhus.com/devtools-detect/index.js"></script>
-        <link rel="stylesheet" href="assets/fonts/gothampro/style.css">
-        <link rel="stylesheet" href="assets/vars.css">
-        <link rel="stylesheet" href="assets/css/index/style.css">
-        <script src="assets/js/jparticles.js"></script>
-        <script src="assets/js/particle.js"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-        <script src="assets/js/text.js"></script>
-        <script src="assets/js/typed.min.js"></script>
-        <meta name="theme-color" content="#d4a563">
         <style>
             body {
-                background-color: #1a1a1a; /* Đen nhạt */
-                color: #f5f5f5; /* Trắng nhạt */
+                background-color: #1a1a1a;
+                color: #f5f5f5;
+                margin: 0;
+                padding: 0;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             }
-            .center.info {
-                background: rgba(0, 0, 0, 0.8); /* Màu nền đen nhạt */
-                border-radius: 10px;
+
+            .container {
+                width: 80%;
+                margin: 0 auto;
                 padding: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-                height: 100vh; /* Mở rộng khung theo chiều dọc */
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
+                background: rgba(0, 0, 0, 0.8);
+                border-radius: 15px;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             }
+
+            .profile-section {
+                text-align: center;
+                padding: 20px;
+            }
+
             .avatar-container {
                 position: relative;
-                display: inline-block;
+                width: 150px;
+                height: 150px;
+                margin: 0 auto;
             }
+
             .avatar {
-                border: 5px solid #fff; /* Màu khung trắng */
-                border-radius: 50%;
-                box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Hiệu ứng khung Noel */
-            }
-            .avatar-frame {
-                position: absolute;
-                top: 0;
-                left: 0;
                 width: 100%;
                 height: 100%;
-                background: url('path_to_christmas_frame.png') no-repeat center center;
-                background-size: contain;
-                pointer-events: none; /* Đảm bảo khung không cản trở tương tác */
+                border-radius: 50%;
+                border: 5px solid #fff;
+                box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
             }
+
             #name {
-                background: linear-gradient(90deg, red, yellow, green, cyan, blue, magenta);
+                background: linear-gradient(to right, #ff0000, #00ff00, #0000ff);
                 -webkit-background-clip: text;
+                background-clip: text;
                 color: transparent;
+                font-size: 2em;
+                margin: 15px 0;
+                background-size: 200% auto;
                 animation: gradient 3s linear infinite;
             }
-            @keyframes gradient {
-                0% { background-position: 0% 50%; }
-                100% { background-position: 100% 50%; }
+
+            .social-links {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 15px;
+                margin: 20px 0;
             }
-            .buttons a {
+
+            .social-link {
                 display: flex;
                 align-items: center;
-                margin: 10px 0;
+                padding: 10px 20px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 50px;
                 text-decoration: none;
-                color: #f5f5f5;
-                font-weight: bold;
+                color: #fff;
+                transition: all 0.3s ease;
             }
-            .buttons a img {
-                width: 24px;
-                height: 24px;
+
+            .social-link:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: translateY(-2px);
+            }
+
+            .social-link i {
                 margin-right: 10px;
+                font-size: 20px;
+            }
+
+            /* Discord icon color */
+            .fa-discord {
+                color: #7289DA;
+            }
+
+            /* GitHub icon color */
+            .fa-github {
+                color: #fff;
+            }
+
+            /* Facebook icon color */
+            .fa-facebook {
+                color: #1877F2;
+            }
+
+            @keyframes gradient {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+
+            .spotify-section {
+                margin-top: 20px;
+                width: 100%;
+                max-width: 600px;
+                margin: 20px auto;
             }
         </style>
     </head>
-    <body class="center">
+    <body>
+        <div class="container">
+            <div class="profile-section">
+                <div class="avatar-container">
+                    <img src="assets/images/avatar.png" alt="Avatar" class="avatar">
+                </div>
+                <h1 id="name">TazukiVN</h1>
+                
+                <div class="social-links">
+                    <!-- Discord Link -->
+                    <a href="https://discord.gg/YourDiscordLink" class="social-link">
+                        <i class="fab fa-discord"></i>
+                        <span>Discord</span>
+                    </a>
+
+                    <!-- GitHub Link -->
+                    <a href="https://github.com/MinhTaz" class="social-link">
+                        <i class="fab fa-github"></i>
+                        <span>GitHub</span>
+                    </a>
+
+                    <!-- Facebook Link -->
+                    <a href="https://www.facebook.com/tazukivn" class="social-link">
+                        <i class="fab fa-facebook"></i>
+                        <span>Facebook</span>
+                    </a>
+                </div>
+
+                <!-- Spotify Embed -->
+                <div class="spotify-section">
+                    <iframe style="border-radius:12px" 
+                            src="https://open.spotify.com/embed/episode/2nlw84YOGQm6L7uWCUlGbe?utm_source=generator" 
+                            width="100%" 
+                            height="152" 
+                            frameBorder="0" 
+                            allowfullscreen="" 
+                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
+                            loading="lazy">
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Background Particles -->
+        <div id="particles" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
+        <script src="assets/js/jparticles.js"></script>
         <script>
-            document.body.style.backgroundImage = "url('assets/images/bg.png')";
-        </script>    
-        <div id="particles" style="position: fixed; width: 100%; height: 100%;"></div>
-        <div class="center pizdec">
-            <script>
-                new JParticles.particle('#particles', {
+            new JParticles.particle('#particles', {
                 color: ['white', '#dee0e0'],
                 proximity: 120,
                 range: 150,
                 parallax: true
-                });
-            </script>
-            <header class="center info">
-                <div class="center pizdec">
-                    <div class="avatar-container">
-                        <img src="assets/images/avatar.png" oncontextmenu="return false;" class="avatar">
-                        <div class="avatar-frame"></div>
-                    </div>
-                    <h2><span id="name">TazukiVN</span></h2>
-                    <hr width="295">
-                    <h3><span class="typed">fet</span><span class="typed-cursor">|</span></h3>
-                    <hr width="295">
-                    <div class="buttons">
-                        <script>
-                            document.currentScript.parentElement.volume = 0.50;
-                        </script>
-                    </div>
-                    <h2></h2>
-                </div>
-                <div class="buttons">
-                    <a href="https://www.facebook.com/tazukivn" class="link">
-                        <img src="path_to_facebook_logo.png" alt="Facebook Logo">
-                        Phan Minh Phát
-                    </a>
-                    <a href="https://github.com/MinhTaz" class="link">
-                        <img src="path_to_github_logo.png" alt="GitHub Logo">
-                        MinhTaz
-                    </a>
-                </div>
-                <p>
-                    <h9><span id="name"><center> </center></span></h9>
-                    <h9><span id="name"><center> </center></span></h9>
-                    <h9><span id="name"><center> </center></span></h9>
-                </p>
-                <!-- Thay thế phần nhạc cũ bằng embed Spotify -->
-                <div>
-                    <iframe style="border-radius:12px" 
-                            src="https://open.spotify.com/embed/episode/2nlw84YOGQm6L7uWCUlGbe?utm_source=generator" 
-                            width="100%" height="152" frameBorder="0" allowfullscreen="" 
-                            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                            loading="lazy"></iframe>
-                </div>
-            </header>
-        </div>
+            });
+        </script>
     </body>
 </html>
