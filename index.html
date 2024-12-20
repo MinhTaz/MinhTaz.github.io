@@ -88,11 +88,9 @@
                 min-height: 27px;
                 position: relative;
                 padding: 0 10px;
-                display: inline-block; /* Thêm dòng này để cho span có thể có kích thước */
             }
-            
-            /* Loại bỏ ::after vì JS đã xử lý việc nhấp nháy */
-            /* .typing-text::after {
+
+            .typing-text::after {
                 content: '|';
                 position: absolute;
                 right: -5px;
@@ -102,16 +100,8 @@
             @keyframes blink {
                 0%, 100% { opacity: 1; }
                 50% { opacity: 0; }
-            } */
-            .typing-cursor {
-                margin-left: 2px;
-                animation: blink 1s infinite;
             }
 
-            @keyframes blink {
-                0%, 100% { opacity: 1; }
-                50% { opacity: 0; }
-            }
             #name {
                 background: linear-gradient(to right, #ff0000, #00ff00, #0000ff);
                 -webkit-background-clip: text;
@@ -316,7 +306,7 @@
         <!-- Donation Modal -->
         <div id="donationModal" class="modal">
             <div class="modal-content">
-                <span class="close-button" onclick="closeModal()">×</span>
+                <span class="close-button" onclick="closeModal()">&times;</span>
                 <div class="thank-you">
                     <img src="assets/images/thank-you.gif" alt="Thank you gif">
                 </div>
@@ -336,7 +326,69 @@
         <div id="particles" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
         <script src="assets/js/jparticles.js"></script>
         <script>
-            // Particles
+            const messages = [
+                "👋 Welcome to my profile! Thanks for visiting! ✨",
+                "🙏 Chào bạn, đây là trang bio của tôi! 💫",
+                "🌟 Sinh ra là bản gốc, đừng sống như một bản sao! 💯",
+                "🇻🇳 Sinh ra và lớn lên ở Việt Nam thân yêu! ❤️",
+                "🙌 Hãy bố thí tôi bằng cách click vào phần bố thí! 💰",
+                "🏠 Sống ở Quảng Ngãi! 🌊",
+                "😎 Chill thôi! 🎵",
+                "🎮 Thích chơi game, 5 năm chơi minecraft, 6 năm chơi free fire 🏆",
+                "🌊 Yêu biển và sóng, thích yên tĩnh 🧘‍♂️",
+                "⚔️ Founder server minecraft <span class='green-text'>Làng Lá</span> vào chơi với tôi 🎮",
+                "💝 Giàu tình cảm... 🥺",
+                "🎯 Thường chơi game với nick name TazukiVN 🎮",
+                "⚽ Fan MU 20 năm 🔴",
+                "💔 Dell có người yêu huhu 😢"
+            ];
+
+            let currentMessageIndex = 0;
+            let currentText = '';
+            let isDeleting = false;
+            let isWaiting = false;
+
+            const typingSpeed = 80;
+            const deletingSpeed = 40;
+            const pauseBeforeDelete = 3000;
+            const pauseBeforeNext = 1000;
+
+            function typeText() {
+                const textElement = document.getElementById('typingText');
+                const currentMessage = messages[currentMessageIndex];
+                
+                if (isWaiting) {
+                    setTimeout(() => {
+                        isWaiting = false;
+                        isDeleting = true;
+                        typeText();
+                    }, pauseBeforeDelete);
+                    return;
+                }
+
+                if (isDeleting) {
+                    currentText = currentMessage.substring(0, currentText.length - 1);
+                } else {
+                    currentText = currentMessage.substring(0, currentText.length + 1);
+                }
+
+                textElement.innerHTML = currentText;
+
+                let speed = isDeleting ? deletingSpeed : typingSpeed;
+
+                if (!isDeleting && currentText === currentMessage) {
+                    isWaiting = true;
+                } else if (isDeleting && currentText === '') {
+                    isDeleting = false;
+                    currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+                    setTimeout(typeText, pauseBeforeNext);
+                    return;
+                }
+
+                setTimeout(typeText, speed);
+            }
+
+            // Background Particles
             new JParticles.particle('#particles', {
                 color: ['white', '#dee0e0'],
                 proximity: 120,
@@ -344,141 +396,44 @@
                 parallax: true
             });
 
-            // Typing Animation Messages
-// Typing Animation Messages
-// Typing Animation Messages
-const messages = [
-    "👋 Welcome to my profile! Thanks for visiting! ✨",
-    "🙏 Chào bạn, đây là trang bio của tôi! 💫",
-    "🌟 Sinh ra là bản gốc, đừng sống như một bản sao! 💯",
-    "🇻🇳 Sinh ra và lớn lên ở Việt Nam thân yêu! ❤️",
-    "🙌 Hãy bố thí tôi bằng cách click vào phần bố thí! 💰",
-    "🏠 Sống ở Quảng Ngãi! 🌊",
-    "😎 Chill thôi! 🎵",
-    "🎮 Thích chơi game, 5 năm chơi minecraft, 6 năm chơi free fire 🏆",
-    "🌊 Yêu biển và sóng, thích yên tĩnh 🧘‍♂️",
-    "⚔️ Founder server minecraft <span class='green-text'>Làng Lá</span> vào chơi với tôi 🎮",
-    "💝 Giàu tình cảm... 🥺",
-    "🎯 Thường chơi game với nick name TazukiVN 🎮",
-    "⚽ Fan MU 20 năm 🔴",
-    "💔 Dell có người yêu huhu 😢"
-];
+            // Update DateTime
+            function updateDateTime() {
+                const now = new Date();
+                const dateTimeString = now.toLocaleString('vi-VN', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                document.getElementById('datetime').textContent = dateTimeString;
+            }
 
-class TypingEffect {
-    constructor(element, messages, options = {}) {
-        this.element = element;
-        this.messages = messages;
-        this.currentMessageIndex = 0;
-        this.currentText = '';
-        this.isDeleting = false;
-        this.isWaiting = false;
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
 
-        // Default options
-        this.options = {
-            typingSpeed: options.typingSpeed || 100,
-            deletingSpeed: options.deletingSpeed || 50,
-            pauseBeforeDelete: options.pauseBeforeDelete || 3000,
-            pauseBeforeNext: options.pauseBeforeNext || 1000,
-        };
+            // Modal Functions
+            function openModal() {
+                document.getElementById('donationModal').style.display = 'block';
+            }
 
-        // Start typing
-        this.type();
-    }
+            function closeModal() {
+                document.getElementById('donationModal').style.display = 'none';
+            }
 
-    getCurrentMessage() {
-        return this.messages[this.currentMessageIndex];
-    }
+            // Close modal when clicking outside
+            window.onclick = function(event) {
+                if (event.target == document.getElementById('donationModal')) {
+                    closeModal();
+                }
+            }
 
-    updateText() {
-        this.element.innerHTML = this.currentText;
-    }
-
-    type() {
-        const currentMessage = this.getCurrentMessage();
-        const speed = this.isDeleting ? this.options.deletingSpeed : this.options.typingSpeed;
-
-        if (this.isWaiting) {
-            setTimeout(() => {
-                this.isWaiting = false;
-                this.isDeleting = true;
-                this.type();
-            }, this.options.pauseBeforeDelete);
-            return;
-        }
-
-        if (this.isDeleting) {
-            // Deleting text
-            this.currentText = currentMessage.substring(0, this.currentText.length - 1);
-        } else {
-            // Typing text
-            this.currentText = currentMessage.substring(0, this.currentText.length + 1);
-        }
-
-        this.updateText();
-
-        if (!this.isDeleting && this.currentText === currentMessage) {
-            // Finished typing current message
-            this.isWaiting = true;
-        } else if (this.isDeleting && this.currentText === '') {
-            // Finished deleting current message
-            this.isDeleting = false;
-            this.currentMessageIndex = (this.currentMessageIndex + 1) % this.messages.length;
-            setTimeout(() => this.type(), this.options.pauseBeforeNext);
-            return;
-        }
-
-        setTimeout(() => this.type(), speed);
-    }
-}
-
-// Initialize Typing Effect
-const typingTextElement = document.getElementById('typingText');
-new TypingEffect(typingTextElement, messages);
-
-// Donation Modal Functions
-function openModal() {
-    document.getElementById('donationModal').style.display = 'block';
-}
-
-function closeModal() {
-    document.getElementById('donationModal').style.display = 'none';
-}
-
-// Update DateTime
-function updateDateTime() {
-    const now = new Date();
-    const formattedDateTime = now.toLocaleString();
-    document.getElementById('datetime').textContent = formattedDateTime;
-}
-
-setInterval(updateDateTime, 1000);
-updateDateTime();
-
-// Smooth Scrolling for Anchor Links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        document.querySelector(this.getAttribute('href')).scrollIntoView({
-            behavior: 'smooth'
-        });
-    });
-});
-
-// Detect User Agent and Log
-const userAgent = navigator.userAgent.toLowerCase();
-console.log("User Agent:", userAgent);
-
-// Easter Egg Animation
-function runEasterEgg() {
-    alert("Easter Egg Found! 🎉");
-    console.log("Congratulations! You've found the Easter Egg!");
-}
-
-document.addEventListener('keydown', (e) => {
-    if (e.ctrlKey && e.key === 'e') {
-        runEasterEgg();
-    }
-});
-
-// Log Page View
-console.log("Welcome to the profile page! 🎉 Thanks for visiting.");
+            // Start typing effect when page loads
+            document.addEventListener('DOMContentLoaded', () => {
+                setTimeout(typeText, 1000);
+            });
+        </script>
+    </body>
+</html>
