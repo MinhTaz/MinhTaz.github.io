@@ -1,70 +1,17 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="utf-8">
-        <title>Tazuki Pro</title>
-        <!-- Thêm Font Awesome để sử dụng icons -->
+        <!-- Thêm Font Awesome CDN -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-        <meta content="Chào tui là TazukiVN ;-;" property="og:title" />
-        <meta content="Welcome đã đến với trang của tôi :3" property="og:description" />
-        <meta content="/assets/images/avatar.png" property="og:url" />
-        <meta content="/assets/images/avatar.png" property="og:image" />
-        <meta content="#d4a563" data-react-helmet="true" name="theme-color" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- ... (giữ nguyên phần meta và các link/script khác) ... -->
         <style>
-            body {
-                background-color: #1a1a1a;
-                color: #f5f5f5;
-                margin: 0;
-                padding: 0;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            }
-
-            .container {
-                width: 80%;
-                margin: 0 auto;
-                padding: 20px;
-                background: rgba(0, 0, 0, 0.8);
-                border-radius: 15px;
-                box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            }
-
-            .profile-section {
-                text-align: center;
-                padding: 20px;
-            }
-
-            .avatar-container {
-                position: relative;
-                width: 150px;
-                height: 150px;
-                margin: 0 auto;
-            }
-
-            .avatar {
-                width: 100%;
-                height: 100%;
-                border-radius: 50%;
-                border: 5px solid #fff;
-                box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-            }
-
-            #name {
-                background: linear-gradient(to right, #ff0000, #00ff00, #0000ff);
-                -webkit-background-clip: text;
-                background-clip: text;
-                color: transparent;
-                font-size: 2em;
-                margin: 15px 0;
-                background-size: 200% auto;
-                animation: gradient 3s linear infinite;
-            }
-
+            /* ... (giữ nguyên các style cũ) ... */
+            
             .social-links {
                 display: flex;
                 justify-content: center;
-                flex-wrap: wrap;
-                gap: 15px;
+                gap: 20px;
                 margin: 20px 0;
             }
 
@@ -85,75 +32,77 @@
             }
 
             .social-link i {
+                font-size: 24px;
                 margin-right: 10px;
-                font-size: 20px;
             }
 
-            /* Discord icon color */
+            /* Màu riêng cho từng icon */
             .fa-discord {
                 color: #7289DA;
             }
 
-            /* GitHub icon color */
             .fa-github {
-                color: #fff;
+                color: #ffffff;
             }
 
-            /* Facebook icon color */
             .fa-facebook {
                 color: #1877F2;
             }
 
-            @keyframes gradient {
-                0% { background-position: 0% 50%; }
-                50% { background-position: 100% 50%; }
-                100% { background-position: 0% 50%; }
+            .fa-envelope {
+                color: #EA4335;
             }
-
-            .spotify-section {
-                margin-top: 20px;
-                width: 100%;
-                max-width: 600px;
-                margin: 20px auto;
-            }
+            
+            /* ... (giữ nguyên các style khác) ... */
         </style>
     </head>
     <body>
-        <div class="container">
-            <div class="profile-section">
+        <div id="particles" style="position: fixed; width: 100%; height: 100%;"></div>
+        <div class="center info">
+            <div class="profile-container">
+                <div class="profile-background"></div>
                 <div class="avatar-container">
-                    <img src="assets/images/avatar.png" alt="Avatar" class="avatar">
+                    <img src="assets/images/avatar.png" class="avatar" alt="Profile Avatar">
                 </div>
-                <h1 id="name">TazukiVN</h1>
+                <h2><span id="name">TazukiVN</span></h2>
                 
-                <div class="social-links">
-                    <!-- Discord Link -->
-                    <a href="https://discord.gg/YourDiscordLink" class="social-link">
-                        <i class="fab fa-discord"></i>
-                        <span>Discord</span>
-                    </a>
+                <div class="typing-text">
+                    <span class="typed"></span>
+                    <script>
+                        new Typed('.typed', {
+                            strings: ['Developer', 'Gamer', 'Content Creator'],
+                            typeSpeed: 50,
+                            backSpeed: 50,
+                            loop: true
+                        });
+                    </script>
+                </div>
 
-                    <!-- GitHub Link -->
+                <div class="social-links">
+                    <a href="https://discord.com/users/1155358959755071518" class="social-link">
+                        <i class="fab fa-discord"></i>
+                        lailataz
+                    </a>
                     <a href="https://github.com/MinhTaz" class="social-link">
                         <i class="fab fa-github"></i>
-                        <span>GitHub</span>
+                        MinhTaz
                     </a>
-
-                    <!-- Facebook Link -->
                     <a href="https://www.facebook.com/tazukivn" class="social-link">
                         <i class="fab fa-facebook"></i>
-                        <span>Facebook</span>
+                        Minh Phát
                     </a>
+                </div>
+
+                <div class="email-container">
+                    <i class="fas fa-envelope"></i>
+                    phxnquyng@gmail.com
                 </div>
 
                 <!-- Spotify Embed -->
-                <div class="spotify-section">
+                <div style="margin-top: 20px;">
                     <iframe style="border-radius:12px" 
                             src="https://open.spotify.com/embed/episode/2nlw84YOGQm6L7uWCUlGbe?utm_source=generator" 
-                            width="100%" 
-                            height="152" 
-                            frameBorder="0" 
-                            allowfullscreen="" 
+                            width="100%" height="152" frameBorder="0" allowfullscreen="" 
                             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                             loading="lazy">
                     </iframe>
@@ -161,10 +110,8 @@
             </div>
         </div>
 
-        <!-- Background Particles -->
-        <div id="particles" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
-        <script src="assets/js/jparticles.js"></script>
         <script>
+            document.body.style.backgroundImage = "url('assets/images/bg.png')";
             new JParticles.particle('#particles', {
                 color: ['white', '#dee0e0'],
                 proximity: 120,
