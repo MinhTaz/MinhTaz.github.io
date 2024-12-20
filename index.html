@@ -335,6 +335,7 @@
             });
 
             // Typing Animation Messages
+// Typing Animation Messages
             const messages = [
                 "👋 Welcome to my profile! Thanks for visiting! ✨",
                 "🙏 Chào bạn, đây là trang bio của tôi! 💫",
@@ -352,50 +353,113 @@
                 "💔 Dell có người yêu huhu 😢"
             ];
 
-            let currentMessageIndex = 0;
-            let currentCharIndex = 0;
-            const typingElement = document.getElementById('typingText');
-            let isDeleting = false;
-            let typingDelay = 100;
-            let deletingDelay = 50;
-            let newMessageDelay = 2000; // Delay before starting to type a new message
-            let pauseBeforeDelete = 3000; // Time to pause before starting to delete
+            class TypingEffect {
+                constructor(element, messages, options = {}) {
+                    this.element = element;
+                    this.messages = messages;
+                    this.currentMessageIndex = 0;
+                    this.currentText = '';
+                    this.isDeleting = false;
+                    this.isWaiting = false;
+                    
+                    // Default options
+                    this.options = {
+                        typingSpeed: options.typingSpeed || 100,
+                        deletingSpeed: options.deletingSpeed || 50,
+                        pauseBeforeDelete: options.pauseBeforeDelete || 3000,
+                        pauseBeforeNext: options.pauseBeforeNext || 1000,
+                        cursorCharacter: options.cursorCharacter || '|'
+                    };
 
-            function typeMessage() {
-                const currentMessage = messages[currentMessageIndex];
-                
-                if (isDeleting) {
-                    // Deleting text
-                    typingElement.innerHTML = currentMessage.substring(0, currentCharIndex - 1);
-                    currentCharIndex--;
+                    // Add cursor element
+                    this.cursorElement = document.createElement('span');
+                    this.cursorElement.className = 'typing-cursor';
+                    this.cursorElement.innerHTML = this.options.cursorCharacter;
+                    this.element.appendChild(this.cursorElement);
+
+                    // Add cursor blinking animation
+                    const style = document.createElement('style');
+                    style.textContent = `
+                        .typing-cursor {
+                            animation: blink 1s infinite;
+                            margin-left: 2px;
+                        }
+                        @keyframes blink {
+                            0%, 100% { opacity: 1; }
+                            50% { opacity: 0; }
+                        }
+                    `;
+                    document.head.appendChild(style);
+
+                    // Start typing
+                    this.type();
+                }
+
+                getCurrentMessage() {
+                    return this.messages[this.currentMessageIndex];
+                }
+
+                updateText() {
+                    const textElement = document.createElement('span');
+                    textElement.className = 'typing-text';
+                    textElement.innerHTML = this.currentText;
                     
-                    if (currentCharIndex === 0) {
-                        isDeleting = false;
-                        currentMessageIndex = (currentMessageIndex + 1) % messages.length;
-                        setTimeout(typeMessage, newMessageDelay);
-                        return;
+                    // Clear previous content except cursor
+                    while (this.element.firstChild !== this.cursorElement) {
+                        this.element.removeChild(this.element.firstChild);
                     }
                     
-                    setTimeout(typeMessage, deletingDelay);
-                } else {
-                    // Typing text
-                    typingElement.innerHTML = currentMessage.substring(0, currentCharIndex + 1);
-                    currentCharIndex++;
-                    
-                    if (currentCharIndex === currentMessage.length) {
-                        isDeleting = true;
-                        setTimeout(typeMessage, pauseBeforeDelete);
+                    this.element.insertBefore(textElement, this.cursorElement);
+                }
+
+                type() {
+                    const currentMessage = this.getCurrentMessage();
+                    const speed = this.isDeleting ? this.options.deletingSpeed : this.options.typingSpeed;
+
+                    if (this.isWaiting) {
+                        setTimeout(() => {
+                            this.isWaiting = false;
+                            this.isDeleting = true;
+                            this.type();
+                        }, this.options.pauseBeforeDelete);
                         return;
                     }
-                    
-                    setTimeout(typeMessage, typingDelay);
+
+                    if (this.isDeleting) {
+                        // Deleting text
+                        this.currentText = currentMessage.substring(0, this.currentText.length - 1);
+                    } else {
+                        // Typing text
+                        this.currentText = currentMessage.substring(0, this.currentText.length + 1);
+                    }
+
+                    this.updateText();
+
+                    if (!this.isDeleting && this.currentText === currentMessage) {
+                        // Finished typing current message
+                        this.isWaiting = true;
+                    } else if (this.isDeleting && this.currentText === '') {
+                        // Finished deleting current message
+                        this.isDeleting = false;
+                        this.currentMessageIndex = (this.currentMessageIndex + 1) % this.messages.length;
+                        setTimeout(() => this.type(), this.options.pauseBeforeNext);
+                        return;
+                    }
+
+                    setTimeout(() => this.type(), speed);
                 }
             }
 
-            // Start the typing animation
-            setTimeout(typeMessage, newMessageDelay);
+            // Initialize typing effect with custom options
+            const typingEffect = new TypingEffect(document.getElementById('typingText'), messages, {
+                typingSpeed: 80,          // Speed of typing
+                deletingSpeed: 40,        // Speed of deleting
+                pauseBeforeDelete: 3000,  // Time to wait before starting to delete
+                pauseBeforeNext: 1000,    // Time to wait before typing next message
+                cursorCharacter: '|'      // Custom cursor character
+            });
 
-            // Datetime display
+            // Rest of your code (datetime and modal functions) remains the same
             function updateDateTime() {
                 const now = new Date();
                 const dateTimeString = now.toLocaleString('vi-VN', {
