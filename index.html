@@ -2,9 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Tazuki Pro</title>
+        <title>Minh Phát</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-        <meta content="MyProfile of TazukiVN ;-;" property="og:title" />
+        <meta content="Profile of TazukiVN ;-;" property="og:title" />
         <meta content="Welcome đã đến với trang của tôi :3" property="og:description" />
         <meta content="/assets/images/avatar.png" property="og:url" />
         <meta content="/assets/images/avatar.png" property="og:image" />
@@ -86,20 +86,7 @@
                 margin: 20px 0;
                 font-size: 18px;
                 min-height: 27px;
-                position: relative;
                 padding: 0 10px;
-            }
-
-            .typing-text::after {
-                content: '|';
-                position: absolute;
-                right: -5px;
-                animation: blink 0.7s infinite;
-            }
-
-            @keyframes blink {
-                0%, 100% { opacity: 1; }
-                50% { opacity: 0; }
             }
 
             #name {
@@ -242,7 +229,7 @@
                         <img src="assets/images/avatar.png" alt="Avatar" class="avatar">
                     </div>
                 </div>
-                <h1 id="name">TazukiVN</h1>
+                <h1 id="name">Phan Minh Phát - TazukiVN</h1>
                 
                 <div id="typingText" class="typing-text"></div>
 
@@ -326,6 +313,15 @@
         <div id="particles" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
         <script src="assets/js/jparticles.js"></script>
         <script>
+            // Particles
+            new JParticles.particle('#particles', {
+                color: ['white', '#dee0e0'],
+                proximity: 120,
+                range: 150,
+                parallax: true
+            });
+
+            // Messages array
             const messages = [
                 "👋 Welcome to my profile! Thanks for visiting! ✨",
                 "🙏 Chào bạn, đây là trang bio của tôi! 💫",
@@ -343,60 +339,21 @@
                 "💔 Dell có người yêu huhu 😢"
             ];
 
-            let currentMessageIndex = 0;
-            let currentText = '';
-            let isDeleting = false;
-            let isWaiting = false;
+            let currentIndex = 0;
 
-            const typingSpeed = 80;
-            const deletingSpeed = 40;
-            const pauseBeforeDelete = 3000;
-            const pauseBeforeNext = 1000;
-
-            function typeText() {
+            function updateText() {
                 const textElement = document.getElementById('typingText');
-                const currentMessage = messages[currentMessageIndex];
-                
-                if (isWaiting) {
-                    setTimeout(() => {
-                        isWaiting = false;
-                        isDeleting = true;
-                        typeText();
-                    }, pauseBeforeDelete);
-                    return;
-                }
-
-                if (isDeleting) {
-                    currentText = currentMessage.substring(0, currentText.length - 1);
-                } else {
-                    currentText = currentMessage.substring(0, currentText.length + 1);
-                }
-
-                textElement.innerHTML = currentText;
-
-                let speed = isDeleting ? deletingSpeed : typingSpeed;
-
-                if (!isDeleting && currentText === currentMessage) {
-                    isWaiting = true;
-                } else if (isDeleting && currentText === '') {
-                    isDeleting = false;
-                    currentMessageIndex = (currentMessageIndex + 1) % messages.length;
-                    setTimeout(typeText, pauseBeforeNext);
-                    return;
-                }
-
-                setTimeout(typeText, speed);
+                textElement.innerHTML = messages[currentIndex];
+                currentIndex = (currentIndex + 1) % messages.length;
             }
 
-            // Background Particles
-            new JParticles.particle('#particles', {
-                color: ['white', '#dee0e0'],
-                proximity: 120,
-                range: 150,
-                parallax: true
-            });
+            // Initial text update
+            updateText();
 
-            // Update DateTime
+            // Update text every 10 seconds
+            setInterval(updateText, 10000);
+
+            // DateTime update function
             function updateDateTime() {
                 const now = new Date();
                 const dateTimeString = now.toLocaleString('vi-VN', {
@@ -411,10 +368,10 @@
                 document.getElementById('datetime').textContent = dateTimeString;
             }
 
+            // Update time every second
             updateDateTime();
             setInterval(updateDateTime, 1000);
 
-            // Modal Functions
             function openModal() {
                 document.getElementById('donationModal').style.display = 'block';
             }
@@ -429,11 +386,6 @@
                     closeModal();
                 }
             }
-
-            // Start typing effect when page loads
-            document.addEventListener('DOMContentLoaded', () => {
-                setTimeout(typeText, 1000);
-            });
         </script>
     </body>
 </html>
