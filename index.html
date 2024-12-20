@@ -21,75 +21,115 @@
         <script src="assets/js/text.js"></script>
         <script src="assets/js/typed.min.js"></script>
         <meta name="theme-color" content="#d4a563">
+        <style>
+            .center.info {
+                background: rgba(0, 0, 0, 0.8);
+                border-radius: 10px;
+                padding: 20px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                width: 80vw;
+                height: 80vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .profile-section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                max-width: 800px;
+            }
+
+            #name {
+                background: linear-gradient(90deg, red, yellow, green, cyan, blue, magenta);
+                -webkit-background-clip: text;
+                color: transparent;
+                animation: gradient 3s linear infinite;
+            }
+
+            @keyframes gradient {
+                0% { background-position: 0% 50%; }
+                100% { background-position: 100% 50%; }
+            }
+
+            .social-links {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+                margin-top: 20px;
+            }
+
+            .buttons {
+                min-width: 300px;
+            }
+
+            .link i {
+                margin-right: 10px;
+            }
+
+            .spotify-embed {
+                width: 100%;
+                max-width: 800px;
+                margin-top: 20px;
+            }
+        </style>
     </head>
     <body class="center">
         <script>
             document.body.style.backgroundImage = "url('assets/images/bg.png')";
         </script>    
         <div id="particles" style="position: fixed; width: 100%; height: 100%;"></div>
-        <div class="center pizdec">
-            <script>
-                new JParticles.particle('#particles', {
-                    color: ['white', '#dee0e0'],
-                    proximity: 120,
-                    range: 150,
-                    parallax: true
-                });
-            </script>
-            <header class="center info">
-                <div class="profile-background"></div>
-                <div class="center pizdec">
-                    <div class="avatar-container">
-                        <img src="assets/images/avatar.png" oncontextmenu="return false;" class="avatar">
+        <div class="center info">
+            <div class="profile-section">
+                <div class="avatar-container">
+                    <img src="assets/images/avatar.png" oncontextmenu="return false;" class="avatar">
+                </div>
+                
+                <h2><span id="name">TazukiVN</span></h2>
+                <hr width="295">
+                <h3><span class="typed"></span><span class="typed-cursor">|</span></h3>
+                <script>
+                    new Typed('.typed', {
+                        strings: ['Developer', '⚡ Content Creator', '🎮 Gamer'],
+                        typeSpeed: 50,
+                        backSpeed: 50,
+                        loop: true
+                    });
+                </script>
+                <hr width="295">
+
+                <div class="social-links">
+                    <div class="buttons">
+                        <a href="https://discord.com/users/1155358959755071518" class="link">
+                            <i class="fab fa-discord"></i>
+                            lailataz
+                        </a>
                     </div>
-                    <h2><span id="name">TazukiVN</span></h2>
-                    <hr width="295">
-                    <h3><span class="typed"></span><span class="typed-cursor">|</span></h3>
-                    <script>
-                        new Typed('.typed', {
-                            strings: ['Developer', '⚡ Content Creator', '🎮 Gamer'],
-                            typeSpeed: 50,
-                            backSpeed: 50,
-                            loop: true
-                        });
-                    </script>
-                    <hr width="295">
+                    <div class="buttons">
+                        <a href="https://github.com/MinhTaz" class="link">
+                            <i class="fab fa-github"></i>
+                            MinhTaz
+                        </a>
+                    </div>
+                    <div class="buttons">
+                        <a href="https://www.facebook.com/tazukivn" class="link">
+                            <i class="fab fa-facebook"></i>
+                            Minh Phát
+                        </a>
+                    </div>
+                    <div class="buttons">
+                        <a href="mailto:phxnquyng@gmail.com" class="link">
+                            <i class="fas fa-envelope"></i>
+                            phxnquyng@gmail.com
+                        </a>
+                    </div>
                 </div>
 
-                <div class="buttons">
-                    <a href="https://discord.com/users/1155358959755071518" class="link">
-                        <i class="fab fa-discord"></i>
-                        lailataz
-                    </a>
-                </div>
-                <div class="buttons">
-                    <a href="https://github.com/MinhTaz" class="link">
-                        <i class="fab fa-github"></i>
-                        MinhTaz
-                    </a>
-                </div>
-                <div class="buttons">
-                    <a href="https://www.facebook.com/tazukivn" class="link">
-                        <i class="fab fa-facebook"></i>
-                        Minh Phát
-                    </a>
-                </div>
-
-                <div class="buttons">
-                    <a href="mailto:phxnquyng@gmail.com" class="link">
-                        <i class="fas fa-envelope"></i>
-                        phxnquyng@gmail.com
-                    </a>
-                </div>
-
-                <p>
-                    <h9><span id="name"><center> </center></span></h9>
-                    <h9><span id="name"><center> </center></span></h9>
-                    <h9><span id="name"><center> </center></span></h9>
-                </p>
-
-                <!-- Spotify Embed -->
-                <div style="margin-top: 20px; width: 100%;">
+                <div class="spotify-embed">
                     <iframe style="border-radius:12px" 
                             src="https://open.spotify.com/embed/episode/2nlw84YOGQm6L7uWCUlGbe?utm_source=generator" 
                             width="100%" height="152" frameBorder="0" allowfullscreen="" 
@@ -97,24 +137,16 @@
                             loading="lazy">
                     </iframe>
                 </div>
-            </header>
+            </div>
         </div>
 
-        <!-- Modal Windows -->
-        <div id="gitlink" class="center">
-            <div class="popup">
-                <h2>GitHub</h2>
-                <p>...</p>
-                <input type="button" class="btn" value="Close" onclick="document.getElementById('gitlink').style.display='none'">
-            </div>
-        </div>
-        
-        <div id="donate" class="center">
-            <div class="popup">
-                <h2>Donate</h2>
-                <p>...</p>
-                <input type="button" class="btn" value="Close" onclick="document.getElementById('donate').style.display='none'">
-            </div>
-        </div>
+        <script>
+            new JParticles.particle('#particles', {
+                color: ['white', '#dee0e0'],
+                proximity: 120,
+                range: 150,
+                parallax: true
+            });
+        </script>
     </body>
 </html>
