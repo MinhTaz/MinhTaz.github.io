@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <title>Tazuki Pro</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-        <meta content="Chào tui là TazukiVN ;-;" property="og:title" />
+        <meta content="MyProfile of TazukiVN ;-;" property="og:title" />
         <meta content="Welcome đã đến với trang của tôi :3" property="og:description" />
         <meta content="/assets/images/avatar.png" property="og:url" />
         <meta content="/assets/images/avatar.png" property="og:image" />
@@ -69,11 +69,26 @@
                 100% { border-color: #ff6b6b; }
             }
 
-            .welcome-text {
+            .typing-text {
                 font-style: italic;
                 color: #888;
                 margin: 20px 0;
                 font-size: 18px;
+                min-height: 27px;
+                position: relative;
+                padding: 0 10px;
+            }
+
+            .typing-text::after {
+                content: '|';
+                position: absolute;
+                right: -5px;
+                animation: blink 0.7s infinite;
+            }
+
+            @keyframes blink {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0; }
             }
 
             #name {
@@ -122,6 +137,11 @@
             .fa-facebook { color: #1877F2; }
             .fa-envelope { color: #EA4335; }
             .fa-money-bill { color: #85bb65; }
+
+            .green-text {
+                color: #4CAF50;
+                font-weight: bold;
+            }
 
             /* Modal Styles */
             .modal {
@@ -196,15 +216,19 @@
                 </div>
                 <h1 id="name">TazukiVN</h1>
                 
-                <div class="welcome-text">
-                    "Welcome to my profile! Thanks for visiting!"
-                </div>
+                <div id="typingText" class="typing-text"></div>
 
                 <div class="social-links">
                     <!-- Discord Link -->
                     <a href="https://discord.com/users/1155358959755071518" class="social-link">
                         <i class="fab fa-discord"></i>
                         <span>lailataz</span>
+                    </a>
+
+                    <!-- Làng Lá VN Link -->
+                    <a href="https://discord.gg/7Z9AAyr2Uz" class="social-link">
+                        <i class="fab fa-discord"></i>
+                        <span>Làng Lá VN</span>
                     </a>
 
                     <!-- GitHub Link -->
@@ -271,12 +295,77 @@
         <div id="particles" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
         <script src="assets/js/jparticles.js"></script>
         <script>
+            // Particles
             new JParticles.particle('#particles', {
                 color: ['white', '#dee0e0'],
                 proximity: 120,
                 range: 150,
                 parallax: true
             });
+
+            // Typing Animation Messages
+            const messages = [
+                "👋 Welcome to my profile! Thanks for visiting! ✨",
+                "🙏 Chào bạn, đây là trang bio của tôi! 💫",
+                "🌟 Sinh ra là bản gốc, đừng sống như một bản sao! 💯",
+                "🇻🇳 Sinh ra và lớn lên ở Việt Nam thân yêu! ❤️",
+                "🙌 Hãy bố thí tôi bằng cách click vào phần bố thí! 💰",
+                "🏠 Sống ở Quảng Ngãi! 🌊",
+                "😎 Chill thôi! 🎵",
+                "🎮 Thích chơi game, 5 năm chơi minecraft, 6 năm chơi free fire 🏆",
+                "🌊 Yêu biển và sóng, thích yên tĩnh 🧘‍♂️",
+                "⚔️ Founder server minecraft <span class='green-text'>Làng Lá</span> vào chơi với tôi 🎮",
+                "💝 Giàu tình cảm... 🥺",
+                "🎯 Thường chơi game với nick name TazukiVN 🎮",
+                "⚽ Fan MU 20 năm 🔴",
+                "💔 Dell có người yêu huhu 😢"
+            ];
+
+            const typingElement = document.getElementById('typingText');
+            let messageIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let isWaiting = false;
+
+            function typeText() {
+                const currentMessage = messages[messageIndex];
+
+                if (isWaiting) {
+                    setTimeout(() => {
+                        isWaiting = false;
+                        isDeleting = true;
+                        typeText();
+                    }, 10000); // Wait 10 seconds before deleting
+                    return;
+                }
+
+                if (isDeleting) {
+                    typingElement.innerHTML = currentMessage.substring(0, charIndex - 1);
+                    charIndex--;
+
+                    if (charIndex === 0) {
+                        isDeleting = false;
+                        messageIndex = (messageIndex + 1) % messages.length;
+                    }
+                } else {
+                    typingElement.innerHTML = currentMessage.substring(0, charIndex + 1);
+                    charIndex++;
+
+                    if (charIndex === currentMessage.length) {
+                        isWaiting = true;
+                    }
+                }
+
+                const typingSpeed = isDeleting ? 50 : 100;
+                if (!isWaiting) {
+                    setTimeout(typeText, typingSpeed);
+                } else {
+                    typeText();
+                }
+            }
+
+            // Start typing animation
+            typeText();
 
             // Modal Functions
             function openModal() {
