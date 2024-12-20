@@ -352,51 +352,48 @@
                 "💔 Dell có người yêu huhu 😢"
             ];
 
+            let currentMessageIndex = 0;
+            let currentCharIndex = 0;
             const typingElement = document.getElementById('typingText');
-            let messageIndex = 0;
-            let charIndex = 0;
             let isDeleting = false;
-            let isWaiting = false;
+            let typingDelay = 100;
+            let deletingDelay = 50;
+            let newMessageDelay = 2000; // Delay before starting to type a new message
+            let pauseBeforeDelete = 3000; // Time to pause before starting to delete
 
-            function typeText() {
-                const currentMessage = messages[messageIndex];
-
-                if (isWaiting) {
-                    setTimeout(() => {
-                        isWaiting = false;
-                        isDeleting = true;
-                        typeText();
-                    }, 10000); // Wait 10 seconds before deleting
-                    return;
-                }
-
+            function typeMessage() {
+                const currentMessage = messages[currentMessageIndex];
+                
                 if (isDeleting) {
-                    typingElement.innerHTML = currentMessage.substring(0, charIndex - 1);
-                    charIndex--;
-
-                    if (charIndex === 0) {
+                    // Deleting text
+                    typingElement.innerHTML = currentMessage.substring(0, currentCharIndex - 1);
+                    currentCharIndex--;
+                    
+                    if (currentCharIndex === 0) {
                         isDeleting = false;
-                        messageIndex = (messageIndex + 1) % messages.length;
+                        currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+                        setTimeout(typeMessage, newMessageDelay);
+                        return;
                     }
+                    
+                    setTimeout(typeMessage, deletingDelay);
                 } else {
-                    typingElement.innerHTML = currentMessage.substring(0, charIndex + 1);
-                    charIndex++;
-
-                    if (charIndex === currentMessage.length) {
-                        isWaiting = true;
+                    // Typing text
+                    typingElement.innerHTML = currentMessage.substring(0, currentCharIndex + 1);
+                    currentCharIndex++;
+                    
+                    if (currentCharIndex === currentMessage.length) {
+                        isDeleting = true;
+                        setTimeout(typeMessage, pauseBeforeDelete);
+                        return;
                     }
-                }
-
-                const typingSpeed = isDeleting ? 50 : 100;
-                if (!isWaiting) {
-                    setTimeout(typeText, typingSpeed);
-                } else {
-                    typeText();
+                    
+                    setTimeout(typeMessage, typingDelay);
                 }
             }
 
-            // Start typing animation
-            typeText();
+            // Start the typing animation
+            setTimeout(typeMessage, newMessageDelay);
 
             // Datetime display
             function updateDateTime() {
@@ -417,7 +414,6 @@
             updateDateTime();
             setInterval(updateDateTime, 1000);
 
-            // Modal Functions
             function openModal() {
                 document.getElementById('donationModal').style.display = 'block';
             }
