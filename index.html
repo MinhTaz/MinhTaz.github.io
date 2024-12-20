@@ -19,6 +19,17 @@
                 font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             }
 
+            .datetime {
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                background: rgba(0, 0, 0, 0.5);
+                padding: 10px;
+                border-radius: 10px;
+                font-size: 14px;
+                z-index: 100;
+            }
+
             .container {
                 width: 80%;
                 margin: 0 auto;
@@ -132,6 +143,22 @@
                 font-size: 20px;
             }
 
+            .creator-credit {
+                text-align: center;
+                margin-top: 20px;
+                padding: 10px;
+            }
+            
+            .creator-credit a {
+                color: #fff;
+                text-decoration: none;
+                transition: color 0.3s ease;
+            }
+            
+            .creator-credit a:hover {
+                color: #4CAF50;
+            }
+
             .fa-discord { color: #7289DA; }
             .fa-github { color: #fff; }
             .fa-facebook { color: #1877F2; }
@@ -143,7 +170,6 @@
                 font-weight: bold;
             }
 
-            /* Modal Styles */
             .modal {
                 display: none;
                 position: fixed;
@@ -207,6 +233,8 @@
         </style>
     </head>
     <body>
+        <div class="datetime" id="datetime"></div>
+
         <div class="container">
             <div class="profile-section">
                 <div class="profile-background">
@@ -268,6 +296,10 @@
                             loading="lazy">
                     </iframe>
                 </div>
+
+                <div class="creator-credit">
+                    <a href="https://github.com/MinhTaz">@Web được làm bởi Phan Minh Phát ( TazukiVN )</a>
+                </div>
             </div>
         </div>
 
@@ -275,18 +307,17 @@
         <div id="donationModal" class="modal">
             <div class="modal-content">
                 <span class="close-button" onclick="closeModal()">&times;</span>
+                <div class="thank-you">
+                    <img src="assets/images/thank-you.gif" alt="Thank you gif">
+                </div>
                 <h2>Thông tin thanh toán</h2>
                 <div class="bank-info">
-                    <h3>Số tài khoản ngân hàng</h3>
+                    <h3>Cake Bank</h3>
                     <p>[Số tài khoản của bạn]</p>
                 </div>
                 <div class="qr-code">
                     <h3>Mã QR</h3>
                     <img src="assets/images/qr-code.png" alt="QR Code">
-                </div>
-                <div class="thank-you">
-                    <h3>Cảm ơn bạn!</h3>
-                    <img src="assets/images/thank-you.gif" alt="Thank you gif">
                 </div>
             </div>
         </div>
@@ -366,6 +397,25 @@
 
             // Start typing animation
             typeText();
+
+            // Datetime display
+            function updateDateTime() {
+                const now = new Date();
+                const dateTimeString = now.toLocaleString('vi-VN', {
+                    weekday: 'long',
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+                document.getElementById('datetime').textContent = dateTimeString;
+            }
+
+            // Update time every second
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
 
             // Modal Functions
             function openModal() {
