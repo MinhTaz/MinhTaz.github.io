@@ -291,101 +291,154 @@
         </div>
 
         <!-- Donation Modal -->
-        <div id="donationModal" class="modal">
-            <div class="modal-content">
-                <span class="close-button" onclick="closeModal()">&times;</span>
-                <div class="thank-you">
-                    <img src="assets/images/thank-you.gif" alt="Thank you gif">
-                </div>
-                <h2>Thông tin thanh toán</h2>
+<!-- Previous code remains the same until the modal section -->
+
+<!-- Update the modal content section in the HTML: -->
+<div id="donationModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeModal()">&times;</span>
+        <div class="donation-container">
+            <div class="thank-you-section">
+                <img src="assets/images/thank-you.gif" alt="Thank you gif">
+                <h2>Cảm ơn bạn!</h2>
+            </div>
+            <div class="payment-section">
                 <div class="bank-info">
-                    <h3>Cake Bank</h3>
+                    <h3>🏦 Cake Bank</h3>
                     <p>[Số tài khoản của bạn]</p>
                 </div>
                 <div class="qr-code">
-                    <h3>Mã QR</h3>
+                    <h3>📱 Mã QR</h3>
                     <img src="assets/images/qr-code.png" alt="QR Code">
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
-        <!-- Background Particles -->
-        <div id="particles" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
-        <script src="assets/js/jparticles.js"></script>
-        <script>
-            // Particles
-            new JParticles.particle('#particles', {
-                color: ['white', '#dee0e0'],
-                proximity: 120,
-                range: 150,
-                parallax: true
-            });
+<!-- Add these styles to your existing CSS: -->
+<style>
+/* Update modal styles */
+.modal-content {
+    position: relative;
+    background-color: #2a2a2a;
+    margin: 5% auto;
+    padding: 30px;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 15px;
+    text-align: center;
+}
 
-            // Messages array
-            const messages = [
-                "👋 Welcome to my profile! Thanks for visiting! ✨",
-                "🙏 Chào bạn, đây là trang bio của tôi! 💫",
-                "🌟 Sinh ra là bản gốc, đừng sống như một bản sao! 💯",
-                "🇻🇳 Sinh ra và lớn lên ở Việt Nam thân yêu! ❤️",
-                "🙌 Hãy bố thí tôi bằng cách click vào phần bố thí! 💰",
-                "🏠 Sống ở Quảng Ngãi! 🌊",
-                "😎 Chill thôi! 🎵",
-                "🎮 Thích chơi game, 5 năm chơi minecraft, 6 năm chơi free fire 🏆",
-                "🌊 Yêu biển và sóng, thích yên tĩnh 🧘‍♂️",
-                "⚔️ Founder server minecraft <span class='green-text'>Làng Lá</span> vào chơi với tôi 🎮",
-                "💝 Giàu tình cảm... 🥺",
-                "🎯 Thường chơi game với nick name TazukiVN 🎮",
-                "⚽ Fan MU 20 năm 🔴",
-                "💔 Dell có người yêu huhu 😢"
-            ];
+.donation-container {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
 
-            let currentIndex = 0;
+.thank-you-section {
+    flex: 1;
+    padding: 20px;
+    border-right: 2px solid rgba(255, 255, 255, 0.1);
+}
 
-            function updateText() {
-                const textElement = document.getElementById('typingText');
-                textElement.innerHTML = messages[currentIndex];
-                currentIndex = (currentIndex + 1) % messages.length;
-            }
+.thank-you-section img {
+    max-width: 200px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
 
-            // Initial text update
-            updateText();
+.payment-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
 
-            // Update text every 10 seconds
-            setInterval(updateText, 10000);
+.bank-info, .qr-code {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
 
-            // DateTime update function
-            function updateDateTime() {
-                const now = new Date();
-                const dateTimeString = now.toLocaleString('vi-VN', {
-                    weekday: 'long',
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
-                document.getElementById('datetime').textContent = dateTimeString;
-            }
+.bank-info:hover, .qr-code:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.1);
+}
 
-            // Update time every second
-            updateDateTime();
-            setInterval(updateDateTime, 1000);
+.qr-code img {
+    max-width: 150px;
+    margin: 10px auto;
+}
 
-            function openModal() {
-                document.getElementById('donationModal').style.display = 'block';
-            }
+/* Update text animation styles */
+.typing-text {
+    font-style: italic;
+    color: #888;
+    margin: 20px 0;
+    font-size: 18px;
+    min-height: 27px;
+    padding: 0 10px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s forwards;
+}
 
-            function closeModal() {
-                document.getElementById('donationModal').style.display = 'none';
-            }
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-            // Close modal when clicking outside
-            window.onclick = function(event) {
-                if (event.target == document.getElementById('donationModal')) {
-                    closeModal();
-                }
-            }
-        </script>
-    </body>
-</html>
+/* Responsive design for modal */
+@media (max-width: 768px) {
+    .donation-container {
+        flex-direction: column;
+    }
+    
+    .thank-you-section {
+        border-right: none;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    }
+}
+</style>
+
+<!-- Update the JavaScript for text animation -->
+<script>
+// Previous code remains the same until the messages section
+
+function updateText() {
+    const textElement = document.getElementById('typingText');
+    
+    // Remove the old text with fade out
+    textElement.style.opacity = '0';
+    textElement.style.transform = 'translateY(20px)';
+    
+    setTimeout(() => {
+        // Update the text content
+        textElement.innerHTML = messages[currentIndex];
+        
+        // Reset the animation
+        textElement.style.animation = 'none';
+        textElement.offsetHeight; // Trigger reflow
+        textElement.style.animation = 'fadeInUp 0.5s forwards';
+        
+        // Update index for next message
+        currentIndex = (currentIndex + 1) % messages.length;
+    }, 500);
+}
+
+// Initial text update
+updateText();
+
+// Update text every 10 seconds
+setInterval(updateText, 10000);
+
+// Rest of your JavaScript remains the same
+</script>
