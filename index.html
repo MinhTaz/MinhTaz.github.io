@@ -1,105 +1,95 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!-- Thêm Font Awesome CDN -->
+        <meta charset="utf-8">
+        <title>Tazuki Pro</title>
+        <meta content="Chào tui là TazukiVN ;-;" property="og:title" />
+        <meta content="Welcome đã đến với trang của tôi :3" property="og:description" />
+        <meta content="/assets/images/avatar.png" property="og:url" />
+        <meta content="/assets/images/avatar.png" property="og:image" />
+        <meta content="#d4a563" data-react-helmet="true" name="theme-color" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="shortcut icon" href="assets/images/icon.png" type="image/png">
+        <script src="https://sindresorhus.com/devtools-detect/index.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-        
-        <!-- ... (giữ nguyên phần meta và các link/script khác) ... -->
-        <style>
-            /* ... (giữ nguyên các style cũ) ... */
-            
-            .social-links {
-                display: flex;
-                justify-content: center;
-                gap: 20px;
-                margin: 20px 0;
-            }
-
-            .social-link {
-                display: flex;
-                align-items: center;
-                padding: 10px 20px;
-                background: rgba(255, 255, 255, 0.1);
-                border-radius: 50px;
-                text-decoration: none;
-                color: #fff;
-                transition: all 0.3s ease;
-            }
-
-            .social-link:hover {
-                background: rgba(255, 255, 255, 0.2);
-                transform: translateY(-2px);
-            }
-
-            .social-link i {
-                font-size: 24px;
-                margin-right: 10px;
-            }
-
-            /* Màu riêng cho từng icon */
-            .fa-discord {
-                color: #7289DA;
-            }
-
-            .fa-github {
-                color: #ffffff;
-            }
-
-            .fa-facebook {
-                color: #1877F2;
-            }
-
-            .fa-envelope {
-                color: #EA4335;
-            }
-            
-            /* ... (giữ nguyên các style khác) ... */
-        </style>
+        <link rel="stylesheet" href="assets/fonts/gothampro/style.css">
+        <link rel="stylesheet" href="assets/vars.css">
+        <link rel="stylesheet" href="assets/css/index/style.css">
+        <script src="assets/js/jparticles.js"></script>
+        <script src="assets/js/particle.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+        <script src="assets/js/text.js"></script>
+        <script src="assets/js/typed.min.js"></script>
+        <meta name="theme-color" content="#d4a563">
     </head>
-    <body>
+    <body class="center">
+        <script>
+            document.body.style.backgroundImage = "url('assets/images/bg.png')";
+        </script>    
         <div id="particles" style="position: fixed; width: 100%; height: 100%;"></div>
-        <div class="center info">
-            <div class="profile-container">
+        <div class="center pizdec">
+            <script>
+                new JParticles.particle('#particles', {
+                    color: ['white', '#dee0e0'],
+                    proximity: 120,
+                    range: 150,
+                    parallax: true
+                });
+            </script>
+            <header class="center info">
                 <div class="profile-background"></div>
-                <div class="avatar-container">
-                    <img src="assets/images/avatar.png" class="avatar" alt="Profile Avatar">
-                </div>
-                <h2><span id="name">TazukiVN</span></h2>
-                
-                <div class="typing-text">
-                    <span class="typed"></span>
+                <div class="center pizdec">
+                    <div class="avatar-container">
+                        <img src="assets/images/avatar.png" oncontextmenu="return false;" class="avatar">
+                    </div>
+                    <h2><span id="name">TazukiVN</span></h2>
+                    <hr width="295">
+                    <h3><span class="typed"></span><span class="typed-cursor">|</span></h3>
                     <script>
                         new Typed('.typed', {
-                            strings: ['Developer', 'Gamer', 'Content Creator'],
+                            strings: ['Developer', '⚡ Content Creator', '🎮 Gamer'],
                             typeSpeed: 50,
                             backSpeed: 50,
                             loop: true
                         });
                     </script>
+                    <hr width="295">
                 </div>
 
-                <div class="social-links">
-                    <a href="https://discord.com/users/1155358959755071518" class="social-link">
+                <div class="buttons">
+                    <a href="https://discord.com/users/1155358959755071518" class="link">
                         <i class="fab fa-discord"></i>
                         lailataz
                     </a>
-                    <a href="https://github.com/MinhTaz" class="social-link">
+                </div>
+                <div class="buttons">
+                    <a href="https://github.com/MinhTaz" class="link">
                         <i class="fab fa-github"></i>
                         MinhTaz
                     </a>
-                    <a href="https://www.facebook.com/tazukivn" class="social-link">
+                </div>
+                <div class="buttons">
+                    <a href="https://www.facebook.com/tazukivn" class="link">
                         <i class="fab fa-facebook"></i>
                         Minh Phát
                     </a>
                 </div>
 
-                <div class="email-container">
-                    <i class="fas fa-envelope"></i>
-                    phxnquyng@gmail.com
+                <div class="buttons">
+                    <a href="mailto:phxnquyng@gmail.com" class="link">
+                        <i class="fas fa-envelope"></i>
+                        phxnquyng@gmail.com
+                    </a>
                 </div>
 
+                <p>
+                    <h9><span id="name"><center> </center></span></h9>
+                    <h9><span id="name"><center> </center></span></h9>
+                    <h9><span id="name"><center> </center></span></h9>
+                </p>
+
                 <!-- Spotify Embed -->
-                <div style="margin-top: 20px;">
+                <div style="margin-top: 20px; width: 100%;">
                     <iframe style="border-radius:12px" 
                             src="https://open.spotify.com/embed/episode/2nlw84YOGQm6L7uWCUlGbe?utm_source=generator" 
                             width="100%" height="152" frameBorder="0" allowfullscreen="" 
@@ -107,17 +97,24 @@
                             loading="lazy">
                     </iframe>
                 </div>
-            </div>
+            </header>
         </div>
 
-        <script>
-            document.body.style.backgroundImage = "url('assets/images/bg.png')";
-            new JParticles.particle('#particles', {
-                color: ['white', '#dee0e0'],
-                proximity: 120,
-                range: 150,
-                parallax: true
-            });
-        </script>
+        <!-- Modal Windows -->
+        <div id="gitlink" class="center">
+            <div class="popup">
+                <h2>GitHub</h2>
+                <p>...</p>
+                <input type="button" class="btn" value="Close" onclick="document.getElementById('gitlink').style.display='none'">
+            </div>
+        </div>
+        
+        <div id="donate" class="center">
+            <div class="popup">
+                <h2>Donate</h2>
+                <p>...</p>
+                <input type="button" class="btn" value="Close" onclick="document.getElementById('donate').style.display='none'">
+            </div>
+        </div>
     </body>
 </html>
