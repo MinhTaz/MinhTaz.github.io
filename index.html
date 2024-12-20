@@ -3,136 +3,194 @@
     <head>
         <meta charset="utf-8">
         <title>Tazuki Pro</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <meta content="Chào tui là TazukiVN ;-;" property="og:title" />
         <meta content="Welcome đã đến với trang của tôi :3" property="og:description" />
         <meta content="/assets/images/avatar.png" property="og:url" />
         <meta content="/assets/images/avatar.png" property="og:image" />
         <meta content="#d4a563" data-react-helmet="true" name="theme-color" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="shortcut icon" href="assets/images/icon.png" type="image/png">
-        <script src="https://sindresorhus.com/devtools-detect/index.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-        <link rel="stylesheet" href="assets/fonts/gothampro/style.css">
-        <link rel="stylesheet" href="assets/vars.css">
-        <link rel="stylesheet" href="assets/css/index/style.css">
-        <script src="assets/js/jparticles.js"></script>
-        <script src="assets/js/particle.js"></script>
-        <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-        <script src="assets/js/text.js"></script>
-        <script src="assets/js/typed.min.js"></script>
-        <meta name="theme-color" content="#d4a563">
         <style>
-            .center.info {
-                background: rgba(0, 0, 0, 0.8);
-                border-radius: 10px;
+            body {
+                background-color: #1a1a1a;
+                color: #f5f5f5;
+                margin: 0;
+                padding: 0;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            }
+
+            .container {
+                width: 80%;
+                margin: 0 auto;
                 padding: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-                width: 80vw;
-                height: 80vh;
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
+                background: rgba(0, 0, 0, 0.8);
+                border-radius: 15px;
+                box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             }
 
             .profile-section {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
+                text-align: center;
+                padding: 20px;
+            }
+
+            .profile-background {
+                position: relative;
                 width: 100%;
-                max-width: 800px;
+                max-width: 500px;
+                height: 200px;
+                margin: 0 auto;
+                background: linear-gradient(45deg, #FF512F, #DD2476);
+                border-radius: 15px;
+                overflow: hidden;
+            }
+
+            .avatar-container {
+                position: absolute;
+                width: 150px;
+                height: 150px;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            .avatar {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                border: 5px solid #fff;
+                box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+            }
+
+            .animated-text {
+                font-size: 24px;
+                margin: 20px 0;
+                background: linear-gradient(to right, #ff0000, #00ff00, #0000ff);
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                animation: moveText 5s linear infinite;
+            }
+
+            @keyframes moveText {
+                0% { transform: translateX(100%); }
+                100% { transform: translateX(-100%); }
             }
 
             #name {
-                background: linear-gradient(90deg, red, yellow, green, cyan, blue, magenta);
+                background: linear-gradient(to right, #ff0000, #00ff00, #0000ff);
                 -webkit-background-clip: text;
+                background-clip: text;
                 color: transparent;
+                font-size: 2em;
+                margin: 15px 0;
+                background-size: 200% auto;
                 animation: gradient 3s linear infinite;
-            }
-
-            @keyframes gradient {
-                0% { background-position: 0% 50%; }
-                100% { background-position: 100% 50%; }
             }
 
             .social-links {
                 display: flex;
-                flex-direction: column;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 15px;
+                margin: 20px 0;
+            }
+
+            .social-link {
+                display: flex;
                 align-items: center;
-                gap: 10px;
-                margin-top: 20px;
+                padding: 10px 20px;
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 50px;
+                text-decoration: none;
+                color: #fff;
+                transition: all 0.3s ease;
             }
 
-            .buttons {
-                min-width: 300px;
+            .social-link:hover {
+                background: rgba(255, 255, 255, 0.2);
+                transform: translateY(-2px);
             }
 
-            .link i {
+            .social-link i {
                 margin-right: 10px;
+                font-size: 20px;
             }
 
-            .spotify-embed {
-                width: 100%;
-                max-width: 800px;
+            .fa-discord { color: #7289DA; }
+            .fa-github { color: #fff; }
+            .fa-facebook { color: #1877F2; }
+            .fa-envelope { color: #EA4335; }
+
+            @keyframes gradient {
+                0% { background-position: 0% 50%; }
+                50% { background-position: 100% 50%; }
+                100% { background-position: 0% 50%; }
+            }
+
+            .spotify-section {
                 margin-top: 20px;
+                width: 100%;
+                max-width: 600px;
+                margin: 20px auto;
+            }
+
+            .overflow-container {
+                width: 100%;
+                overflow: hidden;
+                margin: 20px 0;
             }
         </style>
     </head>
-    <body class="center">
-        <script>
-            document.body.style.backgroundImage = "url('assets/images/bg.png')";
-        </script>    
-        <div id="particles" style="position: fixed; width: 100%; height: 100%;"></div>
-        <div class="center info">
+    <body>
+        <div class="container">
             <div class="profile-section">
-                <div class="avatar-container">
-                    <img src="assets/images/avatar.png" oncontextmenu="return false;" class="avatar">
+                <div class="profile-background">
+                    <div class="avatar-container">
+                        <img src="assets/images/avatar.png" alt="Avatar" class="avatar">
+                    </div>
                 </div>
+                <h1 id="name">TazukiVN</h1>
                 
-                <h2><span id="name">TazukiVN</span></h2>
-                <hr width="295">
-                <h3><span class="typed"></span><span class="typed-cursor">|</span></h3>
-                <script>
-                    new Typed('.typed', {
-                        strings: ['Developer', '⚡ Content Creator', '🎮 Gamer'],
-                        typeSpeed: 50,
-                        backSpeed: 50,
-                        loop: true
-                    });
-                </script>
-                <hr width="295">
+                <div class="overflow-container">
+                    <div class="animated-text">
+                        Welcome to my profile! Thanks for visiting!
+                    </div>
+                </div>
 
                 <div class="social-links">
-                    <div class="buttons">
-                        <a href="https://discord.com/users/1155358959755071518" class="link">
-                            <i class="fab fa-discord"></i>
-                            lailataz
-                        </a>
-                    </div>
-                    <div class="buttons">
-                        <a href="https://github.com/MinhTaz" class="link">
-                            <i class="fab fa-github"></i>
-                            MinhTaz
-                        </a>
-                    </div>
-                    <div class="buttons">
-                        <a href="https://www.facebook.com/tazukivn" class="link">
-                            <i class="fab fa-facebook"></i>
-                            Minh Phát
-                        </a>
-                    </div>
-                    <div class="buttons">
-                        <a href="mailto:phxnquyng@gmail.com" class="link">
-                            <i class="fas fa-envelope"></i>
-                            phxnquyng@gmail.com
-                        </a>
-                    </div>
+                    <!-- Discord Link -->
+                    <a href="https://discord.com/users/1155358959755071518" class="social-link">
+                        <i class="fab fa-discord"></i>
+                        <span>lailataz</span>
+                    </a>
+
+                    <!-- GitHub Link -->
+                    <a href="https://github.com/MinhTaz" class="social-link">
+                        <i class="fab fa-github"></i>
+                        <span>MinhTaz</span>
+                    </a>
+
+                    <!-- Facebook Link -->
+                    <a href="https://www.facebook.com/tazukivn" class="social-link">
+                        <i class="fab fa-facebook"></i>
+                        <span>Minh Phát</span>
+                    </a>
+
+                    <!-- Email Link -->
+                    <a href="mailto:phxnquyng@gmail.com" class="social-link">
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>Email</span>
+                    </a>
                 </div>
 
-                <div class="spotify-embed">
+                <!-- Spotify Embed -->
+                <div class="spotify-section">
                     <iframe style="border-radius:12px" 
                             src="https://open.spotify.com/embed/episode/2nlw84YOGQm6L7uWCUlGbe?utm_source=generator" 
-                            width="100%" height="152" frameBorder="0" allowfullscreen="" 
+                            width="100%" 
+                            height="152" 
+                            frameBorder="0" 
+                            allowfullscreen="" 
                             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
                             loading="lazy">
                     </iframe>
@@ -140,6 +198,9 @@
             </div>
         </div>
 
+        <!-- Background Particles -->
+        <div id="particles" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></div>
+        <script src="assets/js/jparticles.js"></script>
         <script>
             new JParticles.particle('#particles', {
                 color: ['white', '#dee0e0'],
