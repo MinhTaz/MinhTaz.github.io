@@ -1,3 +1,4 @@
+// Hiệu ứng gõ chữ
 document.addEventListener("DOMContentLoaded", function () {
     new Typed("#typed", {
         strings: [
@@ -16,15 +17,15 @@ document.addEventListener("DOMContentLoaded", function () {
             "⚽ Fan MU 20 năm 🔴",
             "💔 Dell có người yêu huhu 😢"
         ],
-        typeSpeed: 100,
-        backSpeed: 50,
-        loop: true,
-        showCursor: true,
-        cursorChar: "|", // Fix con trỏ đứng im
+        typeSpeed: 100, // Tốc độ gõ chữ
+        backSpeed: 50, // Tốc độ xóa chữ
+        loop: true,    // Lặp lại hiệu ứng
+        showCursor: true, // Hiển thị con trỏ nhấp nháy
+        cursorChar: "|",  // Ký tự con trỏ
     });
 });
 
-// Mở modal
+// Modal functions
 function openModal() {
     const modal = document.getElementById('donationModal');
     if (modal) {
@@ -32,7 +33,6 @@ function openModal() {
     }
 }
 
-// Đóng modal
 function closeModal() {
     const modal = document.getElementById('donationModal');
     if (modal) {
@@ -40,10 +40,40 @@ function closeModal() {
     }
 }
 
-// Đóng modal khi click bên ngoài
+// Close modal when clicking outside
 window.onclick = function(event) {
     const modal = document.getElementById('donationModal');
-    if (event.target === modal) {
+    if (event.target == modal) {
         closeModal();
     }
-};
+}
+
+// DateTime update function
+function updateDateTime() {
+    const now = new Date();
+    const dateTimeString = now.toLocaleString('vi-VN', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit'
+    });
+    const datetimeElement = document.getElementById('datetime');
+    if (datetimeElement) {
+        datetimeElement.textContent = dateTimeString;
+    }
+}
+
+// Initialize datetime and update every second
+updateDateTime();
+setInterval(updateDateTime, 1000);
+
+// Particles initialization
+new JParticles.particle('#particles', {
+    color: ['white', '#dee0e0'],
+    proximity: 120,
+    range: 150,
+    parallax: true
+});
