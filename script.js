@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     new Typed("#typed", {
         strings: [
             '"👋 Welcome to my profile! Thanks for visiting! ✨"',
+            '"🙏 Chào bạn, đây là trang bio của tôi! 💫"',
             '"🌟 Sinh ra là bản gốc, đừng sống như một bản sao! 💯"',
             '"🇻🇳 Sinh ra và lớn lên ở Việt Nam thân yêu! ❤️"',
             '"🙌 Hãy bố thí tôi bằng cách click vào phần bố thí! 💰"',
@@ -93,8 +94,3 @@ new JParticles.particle('#particles', {
     range: 150,
     parallax: true
 });
-
-// Open New Year Tab
-function openNewYearTab() {
-    window.open('about:blank', '_blank');
-}
