@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
         typeSpeed: 100, // Tốc độ gõ chữ
         backSpeed: 50, // Tốc độ xóa chữ
         loop: true,    // Lặp lại hiệu ứng
-        showCursor: true, // Hiển thị con trỏ nhấp nháy
+        showCursor: false, // Hiển thị con trỏ nhấp nháy
         cursorChar: "|",  // Ký tự con trỏ
     });
 });
