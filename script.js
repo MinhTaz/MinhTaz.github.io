@@ -6,88 +6,53 @@ new JParticles.particle('#particles', {
     parallax: true
 });
 
-// Typing text configuration
-const messages = [
-    "👋 Welcome to my profile! Thanks for visiting! ✨",
-    "🙏 Chào bạn, đây là trang bio của tôi! 💫",
-    "🌟 Sinh ra là bản gốc, đừng sống như một bản sao! 💯",
-    "🇻🇳 Sinh ra và lớn lên ở Việt Nam thân yêu! ❤️",
-    "🙌 Hãy bố thí tôi bằng cách click vào phần bố thí! 💰",
-    "🏠 Sống ở Quảng Ngãi! 🌊",
-    "😎 Chill thôi! 🎵",
-    "🎮 Thích chơi game, 5 năm chơi minecraft, 6 năm chơi free fire 🏆",
-    "🌊 Yêu biển và sóng, thích yên tĩnh 🧘‍♂️",
-    "⚔️ Founder server minecraft Làng Lá vào chơi với tôi 🎮",
-    "💝 Giàu tình cảm... 🥺",
-    "🎯 Thường chơi game với nick name TazukiVN 🎮",
-    "⚽ Fan MU 20 năm 🔴",
-    "💔 Dell có người yêu huhu 😢"
-];
-
-class TypeWriter {
-    constructor(txtElement, words, wait = 3000) {
-        this.txtElement = txtElement;
-        this.words = words;
-        this.txt = '';
-        this.wordIndex = 0;
-        this.wait = parseInt(wait, 10);
-        this.type();
-        this.isDeleting = false;
-    }
-
-    type() {
-        // Current index of word
-        const current = this.wordIndex % this.words.length;
-        // Get full text of current word
-        const fullTxt = this.words[current];
-
-        // Check if deleting
-        if (this.isDeleting) {
-            // Remove char
-            this.txt = fullTxt.substring(0, this.txt.length - 1);
-        } else {
-            // Add char
-            this.txt = fullTxt.substring(0, this.txt.length + 1);
+// Title animation
+$(function () {
+    var title = document.title,
+        animSeq = ["|"],
+        animIndex = 0,
+        titleIndex = 0;
+    
+    function doInverseSpinZeroPitch() {
+        var loadTitle = title.substring(0, titleIndex);
+        if (titleIndex > title.length) {
+            animIndex = 0;
+            titleIndex = 0;
         }
-
-        // Insert txt into element
-        this.txtElement.innerHTML = `<span class="txt">${this.txt}</span>`;
-
-        // Initial Type Speed
-        let typeSpeed = 50;
-
-        if (this.isDeleting) {
-            typeSpeed /= 2;
+        if (animIndex > 1) {
+            titleIndex++;
+            animIndex = 0;
         }
-
-        // If word is complete
-        if (!this.isDeleting && this.txt === fullTxt) {
-            // Make pause at end
-            typeSpeed = this.wait;
-            // Set delete to true
-            this.isDeleting = true;
-        } else if (this.isDeleting && this.txt === '') {
-            this.isDeleting = false;
-            // Move to next word
-            this.wordIndex++;
-            // Pause before start typing
-            typeSpeed = 500;
-        }
-
-        setTimeout(() => this.type(), typeSpeed);
+        document.title = loadTitle + animSeq[0];
+        animIndex++;
     }
-}
+    window.setInterval(doInverseSpinZeroPitch, 150);
+});
 
-// Init On DOM Load
-document.addEventListener('DOMContentLoaded', init);
-
-// Init App
-function init() {
-    const txtElement = document.getElementById('typingText');
-    if (txtElement) {
-        new TypeWriter(txtElement, messages, 3000);
-    }
-}
+// Typed text animation with previous messages
+$(function () {
+    $(".typed").typed({
+        strings: [
+            "👋 Welcome to my profile! Thanks for visiting! ✨",
+            "🙏 Chào bạn, đây là trang bio của tôi! 💫",
+            "🌟 Sinh ra là bản gốc, đừng sống như một bản sao! 💯",
+            "🇻🇳 Sinh ra và lớn lên ở Việt Nam thân yêu! ❤️",
+            "🙌 Hãy bố thí tôi bằng cách click vào phần bố thí! 💰",
+            "🏠 Sống ở Quảng Ngãi! 🌊",
+            "😎 Chill thôi! 🎵",
+            "🎮 Thích chơi game, 5 năm chơi minecraft, 6 năm chơi free fire 🏆",
+            "🌊 Yêu biển và sóng, thích yên tĩnh 🧘‍♂️",
+            "⚔️ Founder server minecraft Làng Lá vào chơi với tôi 🎮",
+            "💝 Giàu tình cảm... 🥺",
+            "🎯 Thường chơi game với nick name TazukiVN 🎮",
+            "⚽ Fan MU 20 năm 🔴",
+            "💔 Dell có người yêu huhu 😢"
+        ],
+        typeSpeed: 135,
+        loop: true,
+        cursorChar: "|",
+    });
+});
 
 // Modal functions
 function openModal() {
