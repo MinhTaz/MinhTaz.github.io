@@ -91,14 +91,16 @@ body {
 }
 
 /* Typed text styles */
+/* Typed text styles */
 .typed {
-    font-size: 0.9rem;
-    font-style: italic;
-    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem; /* Chữ nhỏ hơn */
+    font-style: italic; /* Chữ nghiêng */
+    color: rgba(255, 255, 255, 0.7); /* Màu trắng mờ */
     text-align: center;
     margin: 20px 0;
-    position: relative;
     display: inline-block;
+    font-weight: 300; /* Chữ mỏng hơn */
+    opacity: 0.8; /* Độ mờ nhẹ */
 }
 
 .typed::before {
@@ -110,14 +112,7 @@ body {
 }
 
 .typed-cursor {
-    position: relative;
-    display: inline-block;
-    width: 2px;
-    height: 1em;
-    background-color: #00ff00;
-    margin-left: 2px;
-    animation: blink 0.7s infinite;
-    vertical-align: middle;
+    display: none;
 }
 
 @keyframes blink {
