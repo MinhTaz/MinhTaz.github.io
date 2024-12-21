@@ -1,28 +1,67 @@
-// Hiệu ứng gõ chữ
+// Hiệu ứng gõ chữ và cập nhật thời gian
 document.addEventListener("DOMContentLoaded", function () {
+    // Typed.js initialization
     new Typed("#typed", {
         strings: [
-            "👋 Welcome to my profile! Thanks for visiting! ✨",
-            "🙏 Chào bạn, đây là trang bio của tôi! 💫",
-            "🌟 Sinh ra là bản gốc, đừng sống như một bản sao! 💯",
-            "🇻🇳 Sinh ra và lớn lên ở Việt Nam thân yêu! ❤️",
-            "🙌 Hãy bố thí tôi bằng cách click vào phần bố thí! 💰",
-            "🏠 Sống ở Quảng Ngãi! 🌊",
-            "😎 Chill thôi! 🎵",
-            "🎮 Thích chơi game, 5 năm chơi minecraft, 6 năm chơi free fire 🏆",
-            "🌊 Yêu biển và sóng, thích yên tĩnh 🧘‍♂️",
-            "⚔️ Founder server minecraft Làng Lá vào chơi với tôi 🎮",
-            "💝 Giàu tình cảm... 🥺",
-            "🎯 Thường chơi game với nick name TazukiVN 🎮",
-            "⚽ Fan MU 20 năm 🔴",
-            "💔 Dell có người yêu huhu 😢"
+            '"👋 Welcome to my profile! Thanks for visiting! ✨"',
+            '"🙏 Chào bạn, đây là trang bio của tôi! 💫"',
+            '"🌟 Sinh ra là bản gốc, đừng sống như một bản sao! 💯"',
+            '"🇻🇳 Sinh ra và lớn lên ở Việt Nam thân yêu! ❤️"',
+            '"🙌 Hãy bố thí tôi bằng cách click vào phần bố thí! 💰"',
+            '"🏠 Sống ở Quảng Ngãi! 🌊"',
+            '"😎 Chill thôi! 🎵"',
+            '"🎮 Thích chơi game, 5 năm chơi minecraft, 6 năm chơi free fire 🏆"',
+            '"🌊 Yêu biển và sóng, thích yên tĩnh 🧘‍♂️"',
+            '"⚔️ Founder server minecraft Làng Lá vào chơi với tôi 🎮"',
+            '"💝 Giàu tình cảm... 🥺"',
+            '"🎯 Thường chơi game với nick name TazukiVN 🎮"',
+            '"⚽ Fan MU 20 năm 🔴"',
+            '"💔 Dell có người yêu huhu 😢"'
         ],
-        typeSpeed: 100, // Tốc độ gõ chữ
-        backSpeed: 50, // Tốc độ xóa chữ
-        loop: true,    // Lặp lại hiệu ứng
-        showCursor: false, // Hiển thị con trỏ nhấp nháy
-        cursorChar: "|",  // Ký tự con trỏ
+        typeSpeed: 100,
+        backSpeed: 50,
+        loop: true,
+        showCursor: false, // Tắt cursor vì không cần | nữa
     });
+
+    // DateTime update function
+    function updateDateTime() {
+        const now = new Date();
+        
+        // Chuyển đổi sang giờ Việt Nam
+        const vietnamTime = new Date(now.toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' }));
+        
+        const hours = vietnamTime.getHours();
+        const minutes = String(vietnamTime.getMinutes()).padStart(2, '0');
+        const day = String(vietnamTime.getDate()).padStart(2, '0');
+        const month = String(vietnamTime.getMonth() + 1).padStart(2, '0');
+        const year = vietnamTime.getFullYear();
+
+        // Xác định buổi trong ngày và icon tương ứng
+        let timeOfDay, timeIcon;
+        if (hours >= 5 && hours < 12) {
+            timeOfDay = "Buổi sáng";
+            timeIcon = "☀️"; // icon mặt trời
+        } else if (hours >= 12 && hours < 18) {
+            timeOfDay = "Buổi chiều";
+            timeIcon = "🌤️"; // icon mặt trời có mây
+        } else {
+            timeOfDay = "Buổi tối";
+            timeIcon = "🌙"; // icon mặt trăng
+        }
+
+        const formattedHours = String(hours).padStart(2, '0');
+        const dateTimeString = `🕐 ${formattedHours}:${minutes} - ${day}/${month}/${year}<br>${timeIcon} ${timeOfDay}`;
+        
+        const datetimeElement = document.getElementById('datetime');
+        if (datetimeElement) {
+            datetimeElement.innerHTML = dateTimeString;
+        }
+    }
+
+    // Initialize datetime and update every second
+    updateDateTime();
+    setInterval(updateDateTime, 1000);
 });
 
 // Modal functions
@@ -47,28 +86,6 @@ window.onclick = function(event) {
         closeModal();
     }
 }
-
-// DateTime update function
-function updateDateTime() {
-    const now = new Date();
-    const dateTimeString = now.toLocaleString('vi-VN', {
-        weekday: 'long',
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit'
-    });
-    const datetimeElement = document.getElementById('datetime');
-    if (datetimeElement) {
-        datetimeElement.textContent = dateTimeString;
-    }
-}
-
-// Initialize datetime and update every second
-updateDateTime();
-setInterval(updateDateTime, 1000);
 
 // Particles initialization
 new JParticles.particle('#particles', {
