@@ -248,6 +248,34 @@ body {
     color: #4CAF50;
 }
 
+/* New Year Button */
+.new-year-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #ff69b4; /* Màu hồng */
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.new-year-button i {
+    margin-right: 8px;
+}
+
+.new-year-button:hover {
+    background-color: #ff1493; /* Màu hồng đậm hơn */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .container {
