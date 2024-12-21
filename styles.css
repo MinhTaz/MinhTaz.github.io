@@ -16,6 +16,8 @@ body {
     border-radius: 10px;
     font-size: 14px;
     z-index: 100;
+    color: rgba(255, 255, 255, 0.7);
+    font-style: italic;
 }
 
 /* Container styling */
@@ -70,27 +72,7 @@ body {
     100% { border-color: #ff6b6b; }
 }
 
-/* Typing effect styles */
-.typing-text {
-    font-style: italic;
-    color: #888;
-    margin: 20px 0;
-    font-size: 18px;
-    min-height: 27px;
-    padding: 0 10px;
-    display: inline-block;
-}
-
-.typing {
-    border-right: 2px solid #888;
-    animation: blink 0.75s step-end infinite;
-}
-
-@keyframes blink {
-    from, to { border-color: transparent }
-    50% { border-color: #888 }
-}
-
+/* Name styling */
 #name {
     background: linear-gradient(to right, #ff0000, #00ff00, #0000ff);
     -webkit-background-clip: text;
@@ -108,19 +90,39 @@ body {
     100% { background-position: 0% 50%; }
 }
 
+/* Typed text styles */
 .typed {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #00ff00;
+    font-size: 0.9rem;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.7);
     text-align: center;
     margin: 20px 0;
+    position: relative;
+    display: inline-block;
+}
+
+.typed::before {
+    content: '"';
+}
+
+.typed::after {
+    content: '"';
 }
 
 .typed-cursor {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #00ff00;
-    vertical-align: bottom; /* Fix vị trí con trỏ */
+    position: relative;
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    background-color: #00ff00;
+    margin-left: 2px;
+    animation: blink 0.7s infinite;
+    vertical-align: middle;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
 }
 
 /* Social Links */
@@ -160,11 +162,6 @@ body {
 .fa-envelope { color: #EA4335; }
 .fa-money-bill { color: #85bb65; }
 
-.green-text {
-    color: #4CAF50;
-    font-weight: bold;
-}
-
 /* Modal Styles */
 .modal {
     display: none;
@@ -183,12 +180,11 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #2a2a2a;
-    padding: 20px;
-    width: 90%;
-    max-width: 400px;
-    border-radius: 15px;
+    padding: 15px;
+    width: 80%;
+    max-width: 300px;
+    border-radius: 10px;
     text-align: center;
-    z-index: 1000;
 }
 
 .close-button {
@@ -198,37 +194,59 @@ body {
     font-size: 24px;
     cursor: pointer;
     color: #888;
+    transition: color 0.3s ease;
 }
 
 .close-button:hover {
     color: #fff;
 }
 
-.donation-container h3 {
-    font-size: 1.5rem;
-    color: #00ff00;
+/* Payment Container */
+.payment-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
 }
 
-.donation-container p {
+.bank-info {
+    margin-bottom: 10px;
+}
+
+.bank-info h3 {
     font-size: 1.2rem;
-    margin: 10px 0;
+    margin-bottom: 5px;
+    color: #4CAF50;
 }
 
-.donation-container .qr-code img {
-    width: 150px;
-    height: 150px;
-    border-radius: 8px;
-    margin-top: 10px;
+.bank-info p {
+    font-size: 1rem;
+    margin: 0;
+    color: #fff;
+}
+
+.qr-code img {
+    max-width: 200px;
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.thank-you img {
+    max-width: 150px;
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
 }
 
 /* Spotify section */
 .spotify-section {
-    margin-top: 20px;
+    margin: 20px auto;
     width: 100%;
     max-width: 600px;
-    margin: 20px auto;
 }
 
+/* Creator credit */
 .creator-credit {
     text-align: center;
     margin-top: 20px;
@@ -239,8 +257,35 @@ body {
     color: #fff;
     text-decoration: none;
     transition: color 0.3s ease;
+    font-size: 0.9rem;
+    font-style: italic;
 }
 
 .creator-credit a:hover {
     color: #4CAF50;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 10px;
+    }
+
+    .social-links {
+        gap: 10px;
+    }
+
+    .social-link {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    .typed {
+        font-size: 0.8rem;
+    }
+
+    #name {
+        font-size: 1.5em;
+    }
 }
